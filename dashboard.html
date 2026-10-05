@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistem Informasi PKL - SMK Dwi Bhakti</title>
+<style>
+ * { box-sizing: border-box; }
+ html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; background: #f8fafc; }
+ body { overflow-x: hidden; }
+ .dashboard { width: 100%; max-width: 1440px; margin: 0 auto; }
+ svg { display: block; width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<div class="dashboard">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1080" width="100%" height="100%" style="background-color: #f8fafc; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;">
+ 
+ <!-- Sidebar Navigation -->
+ <rect x="0" y="0" width="80" height="1080" fill="#1e293b"/>
+ <rect x="18" y="24" width="44" height="44" rx="12" fill="#2563eb"/>
+ <path d="M30 46 L40 28 L50 46 Z" fill="#ffffff" opacity="0.9"/>
+ <circle cx="40" cy="40" r="4" fill="#60a5fa"/>
+ 
+ <!-- Sidebar Icons -->
+ <rect x="26" y="110" width="28" height="28" rx="8" fill="#2563eb"/>
+ <path d="M33 124 h14 M33 118 h14 M33 130 h8" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+ <rect x="26" y="160" width="28" height="28" rx="8" fill="transparent"/>
+ <path d="M32 174 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0 M28 182 c0 -4 4 -6 12 -6 s12 2 12 6" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round"/>
+ <rect x="26" y="210" width="28" height="28" rx="8" fill="transparent"/>
+ <path d="M30 218 h20 v12 h-20 z M34 218 v-3 a2 2 0 0 1 2 -2 h8 a2 2 0 0 1 2 2 v3" stroke="#94a3b8" stroke-width="2" fill="none"/>
+ <rect x="26" y="260" width="28" height="28" rx="8" fill="transparent"/>
+ <path d="M30 268 h20 v14 h-20 z M30 272 h20 M36 268 v14" stroke="#94a3b8" stroke-width="2" fill="none"/>
+
+ <!-- Top Header Bar -->
+ <rect x="80" y="0" width="1360" height="70" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+ <text x="110" y="38" font-size="20" font-weight="700" fill="#0f172a">SISTEM INFORMASI PKL</text>
+ <text id="header-status" x="110" y="55" font-size="12" font-weight="600" fill="#2563eb">SMK DWI BHAKTI — ⏳ Memuat data dari Google Sheets...</text>
+
+ <!-- Profile -->
+ <rect x="1280" y="18" width="130" height="36" rx="18" fill="#f1f5f9"/>
+ <circle cx="1298" cy="36" r="13" fill="#2563eb"/>
+ <text x="1298" y="40" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
+ <text x="1318" y="40" font-size="12" font-weight="600" fill="#334155">Pengguna</text>
+
+ <!-- ==================== STATS CARDS ==================== -->
+ <g transform="translate(110, 90)">
+ <rect width="285" height="90" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+ <rect x="16" y="16" width="48" height="48" rx="10" fill="#eff6ff"/>
+ <text x="40" y="45" font-size="22" text-anchor="middle">👨‍🎓</text>
+ <text x="76" y="35" font-size="12" font-weight="600" fill="#64748b">TOTAL SISWA</text>
+ <text id="stat-total-siswa" x="76" y="65" font-size="28" font-weight="800" fill="#0f172a">0</text>
+ <text x="145" y="63" font-size="12" font-weight="500" fill="#94a3b8">Siswa</text>
+ </g>
+
+ <g transform="translate(415, 90)">
+ <rect width="285" height="90" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+ <rect x="16" y="16" width="48" height="48" rx="10" fill="#f0fdf4"/>
+ <text x="40" y="45" font-size="22" text-anchor="middle">🏢</text>
+ <text x="76" y="35" font-size="12" font-weight="600" fill="#64748b">TOTAL DU / DI</text>
+ <text id="stat-total-dudi" x="76" y="65" font-size="28" font-weight="800" fill="#0f172a">0</text>
+ <text x="135" y="63" font-size="12" font-weight="500" fill="#94a3b8">Perusahaan</text>
+ </g>
+
+ <g transform="translate(720, 90)">
+ <rect width="285" height="90" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+ <rect x="16" y="16" width="48" height="48" rx="10" fill="#f0fdf4"/>
+ <text x="40" y="45" font-size="22" text-anchor="middle">✅</text>
+ <text x="76" y="35" font-size="12" font-weight="600" fill="#16a34a">SUDAH DITEMPATKAN</text>
+ <text id="stat-ditempatkan" x="76" y="65" font-size="28" font-weight="800" fill="#15803d">0</text>
+ </g>
+
+ <g transform="translate(1025, 90)">
+ <rect width="285" height="90" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+ <rect x="16" y="16" width="48" height="48" rx="10" fill="#fff7ed"/>
+ <text x="40" y="45" font-size="22" text-anchor="middle">⏳</text>
+ <text x="76" y="35" font-size="12" font-weight="600" fill="#ea580c">BELUM DITEMPATKAN</text>
+ <text id="stat-belum-ditempatkan" x="76" y="65" font-size="28" font-weight="800" fill="#c2410c">0</text>
+ </g>
+
+ <!-- ==================== LEFT COLUMN (WILAYAH) ==================== -->
+ <g transform="translate(110, 200)">
+ <rect width="610" height="480" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+ <text x="24" y="36" font-size="16" font-weight="700" fill="#0f172a">📊 Sebaran PKL per Wilayah</text>
+ <text x="24" y="54" font-size="12" fill="#64748b">Statistik distribusi siswa di setiap area industri</text>
+
+ <!-- Bar Charts -->
+ <text x="24" y="95" font-size="13" font-weight="600" fill="#334155">CIREBON</text>
+ <rect x="130" y="80" width="380" height="22" rx="6" fill="#f1f5f9"/>
+ <rect id="bar-cirebon-rect" x="130" y="80" width="0" height="22" rx="6" fill="#2563eb" style="transition: width 0.8s ease;"/>
+ <text x="520" y="96" font-size="13" font-weight="700" fill="#1e293b"><tspan id="bar-cirebon-val">0</tspan> <tspan font-size="11" font-weight="400" fill="#64748b">Siswa</tspan></text>
+
+ <text x="24" y="135" font-size="13" font-weight="600" fill="#334155">JAWA TENGAH</text>
+ <rect x="130" y="120" width="380" height="22" rx="6" fill="#f1f5f9"/>
+ <rect id="bar-jateng-rect" x="130" y="120" width="0" height="22" rx="6" fill="#3b82f6" style="transition: width 0.8s ease;"/>
+ <text x="520" y="136" font-size="13" font-weight="700" fill="#1e293b"><tspan id="bar-jateng-val">0</tspan> <tspan font-size="11" font-weight="400" fill="#64748b">Siswa</tspan></text>
+
+ <text x="24" y="175" font-size="13" font-weight="600" fill="#334155">JABABEKA</text>
+ <rect x="130" y="160" width="380" height="22" rx="6" fill="#f1f5f9"/>
+ <rect id="bar-jababeka-rect" x="130" y="160" width="0" height="22" rx="6" fill="#60a5fa" style="transition: width 0.8s ease;"/>
+ <text x="520" y="176" font-size="13" font-weight="700" fill="#1e293b"><tspan id="bar-jababeka-val">0</tspan> <tspan font-size="11" font-weight="400" fill="#64748b">Siswa</tspan></text>
+
+ <line x1="24" y1="205" x2="586" y2="205" stroke="#f1f5f9" stroke-width="2"/>
+ <text x="24" y="232" font-size="14" font-weight="700" fill="#0f172a">STATUS PENEMPATAN PER WILAYAH</text>
+
+ <!-- Donut Subcards -->
+ <g transform="translate(24, 250)">
+ <rect width="176" height="205" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+ <text x="88" y="28" font-size="14" font-weight="700" fill="#1e293b" text-anchor="middle">Cirebon</text>
+ <circle cx="88" cy="85" r="36" fill="none" stroke="#f97316" stroke-width="12"/>
+ <circle id="circle-cirebon" cx="88" cy="85" r="36" fill="none" stroke="#22c55e" stroke-width="12" stroke-dasharray="0 226" transform="rotate(-90 88 85)"/>
+ <text id="donut-cirebon-total" x="88" y="90" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">0</text>
+ <rect x="16" y="138" width="144" height="24" rx="6" fill="#dcfce7"/>
+ <text id="txt-cirebon-sudah" x="24" y="154" font-size="11" font-weight="600" fill="#15803d">✅ Ditempatkan: 0</text>
+ <rect x="16" y="168" width="144" height="24" rx="6" fill="#ffedd5"/>
+ <text id="txt-cirebon-belum" x="24" y="184" font-size="11" font-weight="600" fill="#c2410c">⏳ Belum: 0</text>
+ </g>
+
+ <g transform="translate(216, 250)">
+ <rect width="176" height="205" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+ <text x="88" y="28" font-size="14" font-weight="700" fill="#1e293b" text-anchor="middle">Jawa Tengah</text>
+ <circle cx="88" cy="85" r="36" fill="none" stroke="#f97316" stroke-width="12"/>
+ <circle id="circle-jateng" cx="88" cy="85" r="36" fill="none" stroke="#22c55e" stroke-width="12" stroke-dasharray="0 226" transform="rotate(-90 88 85)"/>
+ <text id="donut-jateng-total" x="88" y="90" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">0</text>
+ <rect x="16" y="138" width="144" height="24" rx="6" fill="#dcfce7"/>
+ <text id="txt-jateng-sudah" x="24" y="154" font-size="11" font-weight="600" fill="#15803d">✅ Ditempatkan: 0</text>
+ <rect x="16" y="168" width="144" height="24" rx="6" fill="#ffedd5"/>
+ <text id="txt-jateng-belum" x="24" y="184" font-size="11" font-weight="600" fill="#c2410c">⏳ Belum: 0</text>
+ </g>
+
+ <g transform="translate(408, 250)">
+ <rect width="176" height="205" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+ <text x="88" y="28" font-size="14" font-weight="700" fill="#1e293b" text-anchor="middle">Jababeka</text>
+ <circle cx="88" cy="85" r="36" fill="none" stroke="#f97316" stroke-width="12"/>
+ <circle id="circle-jababeka" cx="88" cy="85" r="36" fill="none" stroke="#22c55e" stroke-width="12" stroke-dasharray="0 226" transform="rotate(-90 88 85)"/>
+ <text id="donut-jababeka-total" x="88" y="90" font-size="14" font-weight="800" fill="#0f172a" text-anchor="middle">0</text>
+ <rect x="16" y="138" width="144" height="24" rx="6" fill="#dcfce7"/>
+ <text id="txt-jababeka-sudah" x="24" y="154" font-size="11" font-weight="600" fill="#15803d">✅ Ditempatkan: 0</text>
+ <rect x="16" y="168" width="144" height="24" rx="6" fill="#ffedd5"/>
+ <text id="txt-jababeka-belum" x="24" y="184" font-size="11" font-weight="600" fill="#c2410c">⏳ Belum: 0</text>
+ </g>
+ </g>
+
+ <!-- ==================== RIGHT COLUMN (INTERACTIVE SEARCH) ==================== -->
+ <g transform="translate(740, 200)">
+ <rect width="590" height="232" rx="14" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+ <text x="20" y="30" font-size="15" font-weight="700" fill="#0f172a">👨‍🎓 Cari Data Siswa</text>
+
+ <foreignObject x="20" y="42" width="550" height="38">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+        <input id="search-siswa-input" type="text" placeholder="Ketik nama siswa..." style="width:100%; height:38px; border:1px solid #cbd5e1; border-radius:8px; background:#f8fafc; padding:0 12px; font-size:13px; outline:none;" />
+    </div>
+ </foreignObject>
+
+ <rect x="20" y="90" width="550" height="126" rx="10" fill="#f0f9ff" stroke="#bae6fd"/>
+ <rect x="35" y="104" width="70" height="85" rx="8" fill="#e2e8f0"/>
+ <circle cx="70" cy="132" r="18" fill="#94a3b8"/>
+ <path d="M52 165 c0-10 8-15 18-15 s18 5 18 15" fill="#94a3b8"/>
+
+ <text id="res-siswa-nama" x="120" y="122" font-size="15" font-weight="700" fill="#0369a1">Ketik nama siswa di atas...</text>
+ <rect id="res-siswa-status-box" x="380" y="106" width="140" height="22" rx="11" fill="#e2e8f0"/>
+ <text id="res-siswa-status" x="450" y="121" font-size="10" font-weight="700" fill="#64748b" text-anchor="middle">STATUS</text>
+
+ <text x="120" y="143" font-size="12" font-weight="600" fill="#334155">Kelas/Jurusan:</text>
+ <text id="res-siswa-kelas" x="205" y="143" font-size="12" fill="#475569">-</text>
+ <text x="120" y="162" font-size="12" font-weight="600" fill="#334155">DU / DI:</text>
+ <text id="res-siswa-dudi" x="205" y="162" font-size="12" font-weight="700" fill="#1e293b">-</text>
+ <text x="120" y="181" font-size="12" font-weight="600" fill="#334155">Pembimbing:</text>
+ <text id="res-siswa-pembimbing" x="205" y="181" font-size="12" fill="#475569">-</text>
+ </g>
+
+ <g transform="translate(740, 448)">
+ <rect width="590" height="232" rx="14" fill="#ffffff" stroke="#10b981" stroke-width="2"/>
+ <text x="20" y="30" font-size="15" font-weight="700" fill="#0f172a">🏢 Cari Data DU / DI (Perusahaan)</text>
+
+ <foreignObject x="20" y="42" width="550" height="38">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+        <input id="search-dudi-input" type="text" placeholder="Ketik nama perusahaan..." style="width:100%; height:38px; border:1px solid #cbd5e1; border-radius:8px; background:#f8fafc; padding:0 12px; font-size:13px; outline:none;" />
+    </div>
+ </foreignObject>
+
+ <rect x="20" y="90" width="550" height="126" rx="10" fill="#f0fdf4" stroke="#bbf7d0"/>
+ <rect x="35" y="104" width="60" height="60" rx="10" fill="#dcfce7"/>
+ <text x="65" y="142" font-size="28" text-anchor="middle">🏢</text>
+
+ <text id="res-dudi-nama" x="110" y="122" font-size="15" font-weight="700" fill="#15803d">Ketik nama perusahaan...</text>
+ <rect x="420" y="104" width="130" height="30" rx="8" fill="#16a34a"/>
+ <text id="res-dudi-count" x="485" y="124" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">👥 0 Siswa PKL</text>
+
+ <text x="110" y="143" font-size="12" font-weight="600" fill="#334155">Wilayah:</text>
+ <text id="res-dudi-wilayah" x="175" y="143" font-size="12" fill="#475569">-</text>
+
+ <text x="110" y="162" font-size="12" font-weight="600" fill="#334155">Pembimbing Sekolah:</text>
+ <text id="res-dudi-pic" x="245" y="162" font-size="12" fill="#475569">-</text>
+
+ <text x="110" y="192" font-size="11" font-weight="700" fill="#166534">Daftar Siswa:</text>
+ <foreignObject x="180" y="178" width="370" height="40">
+    <div id="res-dudi-siswa-list" xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; overflow-y:auto; display:flex; flex-wrap:wrap; font-size:11px; gap:4px;">
+        <span style="color:#64748b;">-</span>
+    </div>
+ </foreignObject>
+ </g>
+</svg>
+</div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbzz6WaejEx1VoRkL-mk--rHJP5ldCWehBd9uaYddDX-4896d2bq6reQtISKBcY5R40Z/exec';
+
+let globalSiswaData = [];
+
+async function loadData() {
+    try {
+        const res = await fetch(API_URL);
+        const json = await res.json();
+
+        if (json.status !== "success" || !json.data) {
+            throw new Error(json.message || "Data tidak ditemukan");
+        }
+
+        globalSiswaData = json.data;
+        document.getElementById('header-status').textContent = `SMK DWI BHAKTI — BERHASIL MEMUAT ${globalSiswaData.length} DATA ✅`;
+
+        // 1. Kalkulasi Statistik Utama
+        const totalSiswa = globalSiswaData.length;
+        const sudah = globalSiswaData.filter(s => s['DU/DI'] && s['DU/DI'] !== '').length;
+        const belum = totalSiswa - sudah;
+
+        const dudiSet = new Set();
+        globalSiswaData.forEach(s => {
+            if(s['DU/DI'] && s['DU/DI'] !== '') dudiSet.add(s['DU/DI'].toLowerCase());
+        });
+
+        document.getElementById('stat-total-siswa').textContent = totalSiswa;
+        document.getElementById('stat-total-dudi').textContent = dudiSet.size;
+        document.getElementById('stat-ditempatkan').textContent = sudah;
+        document.getElementById('stat-belum-ditempatkan').textContent = belum;
+
+        // 2. Distribusi Wilayah
+        let cirebonTotal = 0, cirebonSudah = 0;
+        let jatengTotal = 0, jatengSudah = 0;
+        let jababekaTotal = 0, jababekaSudah = 0;
+
+        globalSiswaData.forEach(s => {
+            let wil = (s['WILAYAH'] || "").toLowerCase();
+            let isPlaced = s['DU/DI'] && s['DU/DI'] !== '';
+
+            if(wil.includes('cirebon')) {
+                cirebonTotal++;
+                if(isPlaced) cirebonSudah++;
+            } else if(wil.includes('jawa') || wil.includes('jateng')) {
+                jatengTotal++;
+                if(isPlaced) jatengSudah++;
+            } else if(wil.includes('jababeka') || wil.includes('bekasi') || wil.includes('cikarang')) {
+                jababekaTotal++;
+                if(isPlaced) jababekaSudah++;
+            }
+        });
+
+        const maxS = totalSiswa || 1;
+        document.getElementById('bar-cirebon-val').textContent = cirebonTotal;
+        document.getElementById('bar-cirebon-rect').setAttribute('width', (cirebonTotal/maxS) * 380);
+
+        document.getElementById('bar-jateng-val').textContent = jatengTotal;
+        document.getElementById('bar-jateng-rect').setAttribute('width', (jatengTotal/maxS) * 380);
+
+        document.getElementById('bar-jababeka-val').textContent = jababekaTotal;
+        document.getElementById('bar-jababeka-rect').setAttribute('width', (jababekaTotal/maxS) * 380);
+
+        updateDonut('cirebon', cirebonTotal, cirebonSudah);
+        updateDonut('jateng', jatengTotal, jatengSudah);
+        updateDonut('jababeka', jababekaTotal, jababekaSudah);
+
+        setupSearch();
+
+    } catch (e) {
+        document.getElementById('header-status').textContent = "⚠️ Gagal mengambil data: " + e.message;
+    }
+}
+
+function updateDonut(prefix, total, sudah) {
+    document.getElementById(`donut-${prefix}-total`).textContent = total;
+    document.getElementById(`txt-${prefix}-sudah`).textContent = `✅ Ditempatkan: ${sudah}`;
+    document.getElementById(`txt-${prefix}-belum`).textContent = `⏳ Belum: ${total - sudah}`;
+    
+    let strokeDash = total === 0 ? 0 : (sudah / total) * 226;
+    document.getElementById(`circle-${prefix}`).setAttribute('stroke-dasharray', `${strokeDash} 226`);
+}
+
+function setupSearch() {
+    document.getElementById('search-siswa-input').addEventListener('input', (e) => {
+        let kw = e.target.value.toLowerCase().trim();
+        if(!kw) return;
+        let s = globalSiswaData.find(item => item['SISWA'] && item['SISWA'].toLowerCase().includes(kw));
+        if(s) {
+            document.getElementById('res-siswa-nama').textContent = s['SISWA'].toUpperCase();
+            document.getElementById('res-siswa-kelas').textContent = s['KELAS'] || '-';
+            document.getElementById('res-siswa-dudi').textContent = s['DU/DI'] || '-';
+            document.getElementById('res-siswa-pembimbing').textContent = s['PEMBIMBING'] || '-';
+            
+            let isP = s['DU/DI'] && s['DU/DI'].trim() !== '';
+            document.getElementById('res-siswa-status').textContent = isP ? 'SUDAH DITEMPATKAN' : 'BELUM DITEMPATKAN';
+            document.getElementById('res-siswa-status-box').setAttribute('fill', isP ? '#dcfce7' : '#ffedd5');
+            document.getElementById('res-siswa-status').setAttribute('fill', isP ? '#15803d' : '#c2410c');
+        } else {
+            document.getElementById('res-siswa-nama').textContent = "Siswa tidak ditemukan";
+            document.getElementById('res-siswa-status').textContent = "TIDAK DITEMUKAN";
+            document.getElementById('res-siswa-status-box').setAttribute('fill', '#e2e8f0');
+            document.getElementById('res-siswa-status').setAttribute('fill', '#64748b');
+        }
+    });
+
+    document.getElementById('search-dudi-input').addEventListener('input', (e) => {
+        let kw = e.target.value.toLowerCase().trim();
+        if(!kw) return;
+        let list = globalSiswaData.filter(item => item['DU/DI'] && item['DU/DI'].toLowerCase().includes(kw));
+        if(list.length > 0) {
+            document.getElementById('res-dudi-nama').textContent = list[0]['DU/DI'].toUpperCase();
+            document.getElementById('res-dudi-count').textContent = `👥 ${list.length} Siswa PKL`;
+            document.getElementById('res-dudi-wilayah').textContent = list[0]['WILAYAH'] || '-';
+            document.getElementById('res-dudi-pic').textContent = list[0]['PEMBIMBING'] || '-';
+            document.getElementById('res-dudi-siswa-list').innerHTML = list.map(x => `<span style="background:#ffffff; border:1px solid #bbf7d0; padding:2px 6px; border-radius:4px; margin-right:2px; margin-bottom:2px;">${x['SISWA']}</span>`).join('');
+        } else {
+            document.getElementById('res-dudi-nama').textContent = "Perusahaan tidak ditemukan";
+            document.getElementById('res-dudi-count').textContent = `👥 0 Siswa PKL`;
+            document.getElementById('res-dudi-siswa-list').innerHTML = `<span style="color:#64748b;">-</span>`;
+        }
+    });
+}
+
+window.onload = loadData;
+</script>
+</body>
+</html>
